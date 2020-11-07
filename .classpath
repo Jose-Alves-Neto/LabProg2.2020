@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Lab1JoseAlvesNeto/src"/>
+	<classpathentry kind="src" path="Lab2JoseAlvesNeto/src"/>
+	<classpathentry kind="src" path="Lab3JoseAlvesNeto/src"/>
+	<classpathentry kind="src" path="Lab3JoseAlvesNeto/testes"/>
+	<classpathentry kind="src" path="Lab4JoseAlvesNeto/src"/>
+	<classpathentry kind="src" path="Lab4JoseAlvesNeto/testes"/>
+	<classpathentry kind="src" path="Lab5JoseAlvesNeto/src"/>
+	<classpathentry kind="src" path="Laboratorios2020.3/Lab1/src"/>
+	<classpathentry kind="src" path="Laboratorios2020.3/Lab2_JOSEALVESNETO/src"/>
+	<classpathentry kind="src" path="Laboratorios2020.3/Lab3JoseAlvesNeto/src"/>
+	<classpathentry kind="src" path="Laboratorios2020.3/Lab3JoseAlvesNeto/test"/>
+	<classpathentry kind="src" path="Laboratorios2020.3/Lab4JoseAlvesNeto/src"/>
+	<classpathentry kind="output" path="Lab1JoseAlvesNeto/bin"/>
+</classpath>
