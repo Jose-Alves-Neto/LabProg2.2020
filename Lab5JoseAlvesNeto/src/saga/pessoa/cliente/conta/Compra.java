@@ -2,8 +2,6 @@ package saga.pessoa.cliente.conta;
 
 import java.util.Objects;
 
-import saga.pessoa.fornecedores.produto.Produto;
-
 public class Compra {
 	
 	private String data;

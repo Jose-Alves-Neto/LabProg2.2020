@@ -2,8 +2,6 @@ package saga.pessoa.cliente.conta;
 
 import java.util.ArrayList;
 
-import saga.Facade;
-
 public class Conta {
 	
 	private String cpf;
@@ -16,8 +14,8 @@ public class Conta {
 		this.compras = new ArrayList<>();
 	}
 	
-	public void adicionaCompra(String data, Produto produto) {
-		this.compras.add(new Compra(data, produto));
+	public void adicionaCompra(String data, String nomeProd, String descProd, double preco) {
+		this.compras.add(new Compra(data, nomeProd, descProd, preco));
 	}
 	
 	public String exibeCompra() {

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import saga.pessoa.PessoaComparator;
-import saga.pessoa.fornecedores.produto.Produto;
 
 /**
  * Classe de controle de cliente
@@ -85,18 +84,44 @@ public class ControllerCliente {
 	
 	//Contas
 	
+	/**
+	 * Adiciona uma compra na conta de um cliente.
+	 * @param cpf do cliente.
+	 * @param fornecedor onde foi feito a compra.
+	 * @param data da compra
+	 * @param nomeProd nome do produto.
+	 * @param descProd descricao do produto.
+	 * @param preco do produto.
+	 */
 	public void adicionaCompra(String cpf, String fornecedor, String data, String nomeProd, String descProd, double preco) {
 		this.clientes.get(cpf).adicionaCompra(fornecedor, data, nomeProd, descProd, preco);
 	}
 	
+	/**
+	 * Exibe uma conta, e as compras realizadas.
+	 * @param cpf do cliente.
+	 * @param fornecedor onde foi feita a compra.
+	 * @return a string que representa as compras feitas.
+	 */
 	public String exibeConta(String cpf, String fornecedor) {
 		return this.clientes.get(cpf).exibeContas(fornecedor);
 	}
 	
+	/**
+	 * Exibe todas as contas do clientes e suas compras.
+	 * @param cpf do cliente.
+	 * @return a string que representa todas as compras feitas.
+	 */
 	public String exibeContasClientes(String cpf) {
 		return this.clientes.get(cpf).exibeContasClientes();
 	}
 	
+	/**
+	 * Calcula o quanto foi gasto por um cliente em um fornecedor.
+	 * @param cpf do cliente.
+	 * @param fornecedor onde foi feito a compra.
+	 * @return o total que foi gasto no fornecedor.
+	 */
 	public double getDebito(String cpf, String fornecedor) {
 		return this.clientes.get(cpf).getDebito(fornecedor);
 	}

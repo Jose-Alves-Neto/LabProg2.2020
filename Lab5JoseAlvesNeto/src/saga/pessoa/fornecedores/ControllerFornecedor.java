@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import saga.pessoa.PessoaComparator;
-import saga.pessoa.fornecedores.produto.Produto;
 
 /**
  * Classe controle de fornecedor

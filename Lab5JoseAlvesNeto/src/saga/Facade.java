@@ -1,5 +1,6 @@
 package saga;
 
+import easyaccept.EasyAccept;
 import saga.pessoa.cliente.ControllerCliente;
 import saga.pessoa.fornecedores.ControllerFornecedor;
 
@@ -7,6 +8,11 @@ public class Facade {
 	
 	private ControllerCliente clientes;
 	private ControllerFornecedor fornecedores;
+	
+	public static void main(String[] args) {
+		args = new String[] {"saga.Facade", "acceptance_test/use_case_1.txt"};
+		EasyAccept.main(args);
+	}
 	
 	public Facade() {
 		this.clientes = new ControllerCliente();

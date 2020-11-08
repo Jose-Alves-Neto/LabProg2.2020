@@ -1,6 +1,5 @@
 package saga.pessoa.cliente;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import saga.pessoa.Pessoa;
@@ -12,11 +11,18 @@ import saga.pessoa.cliente.conta.Conta;
  */
 public class Cliente implements Pessoa {
 
+	/**Cpf do cliente. <br>
+	 * Indentificador do cliente.*/
 	private String cpf;
+	/**Nome do cliente.*/
 	private String nome;
+	/**Email do cliente.*/
 	private String email;
+	/**Localização do trabalho/estudo do cliente.*/
 	private String localizacao;
 	
+	/**Mapas das contas do cliente. <br>
+	 * O indentificador de uma conta é o nome do fornecedor.*/
 	private HashMap<String, Conta> contas;
 	
 	/**
@@ -35,13 +41,7 @@ public class Cliente implements Pessoa {
 		this.contas = new HashMap<>();
 	}
 
-	/**
-	 * Edita os dados de um cliente. <br>
-	 * CPF não é editável.
-	 * @param atributo a ser modificado.
-	 * @param novoValor a ser atribuido.
-	 * @return a nova representação do cliente. 
-	 */
+	/**Para o caso de cliente o seu cpf não é editável.*/
 	@Override
 	public String edita(String atributo, String novoValor) {
 		if (!atributo.trim().equals("nome")) {
@@ -57,9 +57,6 @@ public class Cliente implements Pessoa {
 		return this.toString();
 	}
 	
-	/**
-	 * Deleta o cliente.
-	 */
 	@Override
 	public void deleta() {
 		this.cpf = null;
@@ -70,6 +67,14 @@ public class Cliente implements Pessoa {
 	
 	//Contas
 	
+	/**
+	 * Adiciona uma compra na conta do cliente.
+	 * @param fornecedor onde foi realizada a compra.
+	 * @param data da compra.
+	 * @param nomeProd nome do produto.
+	 * @param descProd descricao do produto.
+	 * @param preco do produto.
+	 */
 	public void adicionaCompra(String fornecedor, String data, String nomeProd, String descProd, double preco) {
 		if (!this.contas.containsKey(fornecedor)) {
 			criaConta(fornecedor);
@@ -77,10 +82,19 @@ public class Cliente implements Pessoa {
 		this.contas.get(fornecedor).adicionaCompra(data, nomeProd, descProd, preco);
 	}
 	
+	/**
+	 * Exibe as compras realizadas em um fornecedor.
+	 * @param fornecedor onde a compra foi realizada.
+	 * @return a string que representa todas as compras realizadas no fornecedor.
+	 */
 	public String exibeContas(String fornecedor) {
 		return "Cliente: " + this.nome + this.contas.get(fornecedor).exibeCompra();
 	}
 	
+	/**
+	 * Exibe as compras realizadas em todos os fornecedore.
+	 * @return a string que representa todas as realizadas.
+	 */
 	public String exibeContasClientes() {
 		String lista = "Cliente: " + this.nome;
 		for (Conta c : this.contas.values()) {
