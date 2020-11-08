@@ -1,5 +1,9 @@
 package saga.pessoa.cliente;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import saga.cliente.conta.Conta;
 import saga.pessoa.Pessoa;
 
 /**
@@ -13,6 +17,8 @@ public class Cliente implements Pessoa {
 	private String email;
 	private String localizacao;
 	
+	HashMap<String, Conta> contas;
+	
 	/**
 	 * Cria a representação do cliente.
 	 * @param cpf do cliente.
@@ -21,12 +27,12 @@ public class Cliente implements Pessoa {
 	 * @param localizacao do cliente.
 	 */
 	public Cliente(String cpf, String nome, String email, String localizacao) {
-		validaEntrada(cpf, nome, email, localizacao);
-		
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.localizacao = localizacao;
+		
+		this.contas = new HashMap<>();
 	}
 
 	/**
@@ -38,8 +44,6 @@ public class Cliente implements Pessoa {
 	 */
 	@Override
 	public String edita(String atributo, String novoValor) {
-		validaEdicao(atributo, novoValor);
-		
 		if (!atributo.trim().equals("nome")) {
 			this.nome = novoValor;
 		}
@@ -64,6 +68,36 @@ public class Cliente implements Pessoa {
 		this.email = null;
 	}
 	
+	//Contas
+	
+	public void adicionaCompra(String fornecedor, String data, String nome, String descricao, double preco) {
+		if (!this.contas.containsKey(fornecedor)) {
+			criaConta(fornecedor);
+			this.contas.get(fornecedor).adicionaCompra(data, nome, descricao, preco);
+		} else {
+			this.contas.get(fornecedor).adicionaCompra(data, nome, descricao, preco);
+		}
+	}
+	
+	public String listaCompras() {
+		String lista = "";
+		return lista;
+	}
+	
+	public String exibeCompra(String fornecedor) {
+		return this.nome + " | " + fornecedor + " | " + this.contas.get(fornecedor).toString();
+	}
+
+	public double getDebito(String fornecedor) {
+		return this.contas.get(fornecedor).getDebito();
+	}
+	
+	private void criaConta(String fornecedor) {
+		this.contas.put(fornecedor, new Conta(this.cpf, fornecedor));
+	}
+	
+	//Funções do sistema
+	
 	public int hashCode() {
 		return this.cpf.hashCode();
 	}
@@ -81,46 +115,6 @@ public class Cliente implements Pessoa {
 	
 	public String toString() {
 		return (this.cpf + " - " + this.nome + " - " + this.email + " - " + this.localizacao).trim();
-	}
-	
-	/**
-	 * Valida se os valores iniciais do cliente são válidos.
-	 * @param cpf do cliente.
-	 * @param nome do cliente.
-	 * @param email do cliente.
-	 * @param local de trabalho do cliente.
-	 */
-	private void validaEntrada(String cpf, String nome, String email, String local) {
-		if (cpf == null || cpf.trim().equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo");
-		} if (nome == null || nome.trim().equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo");
-		} if (email == null || email.trim().equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo");
-		} if (local == null || local.trim().equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazio ou nulo");
-		}
-		
-		if (cpf.length() != 11) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido");
-		}
-	}
-	
-	/**
-	 * Valida se os valores para a edição são válidos.
-	 * @param atributo a ser modificado.
-	 * @param modif novo valor.
-	 */
-	private void validaEdicao(String atributo, String modif) {
-		if (atributo.equals("cpf")) {
-			throw new IllegalArgumentException("Erro na edicao do cliente: cpf nao pode ser editado.");
-		} if (atributo.trim().equals("") || atributo == null) {
-			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
-		} if (!atributo.trim().equals("nome") || !atributo.trim().equals("email") || !atributo.trim().equals("telefone")) {
-			throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao existe.");
-		} if (modif.trim().equals("") || atributo == null) {
-			throw new IllegalArgumentException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
-		}
 	}
 	
 	public String getNome() {
