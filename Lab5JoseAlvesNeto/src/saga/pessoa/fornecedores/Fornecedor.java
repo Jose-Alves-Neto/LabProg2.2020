@@ -18,8 +18,7 @@ public class Fornecedor implements Pessoa {
 	private String nome;
 	private String email;
 	private String telefone;
-	private HashMap<String, HashMap<String, Produto>> prodNome;
-	private HashMap<String, Produto> prodDescricao;
+	private HashMap<String, Produto> produtos;
 	
 	/**
 	 * Constroi a representação do fornecedor.
@@ -33,8 +32,7 @@ public class Fornecedor implements Pessoa {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		this.prodNome = new HashMap<>();
-		this.prodDescricao = new HashMap<>();
+		this.produtos = new HashMap<>();
 	}
 	
 	/**
@@ -45,8 +43,7 @@ public class Fornecedor implements Pessoa {
 	 */
 	public void adicionaProduto(String nome, String descricao, double preco) {
 		Produto p = new Produto(nome, descricao, preco);
-		this.prodDescricao.put(descricao, p);
-		this.prodNome.put(nome, prodDescricao);
+		this.produtos.put(nome + "&" + descricao, p);
 	}
 	
 	public String listaProdutos() {
@@ -88,7 +85,7 @@ public class Fornecedor implements Pessoa {
 		this.nome = null;
 		this.email = null;
 		this.telefone = null;
-		this.prodNome = null;
+		this.produtos = null;
 	}
 	
 	public int hashCode() {
@@ -144,7 +141,7 @@ public class Fornecedor implements Pessoa {
 	}
 	
 	private Produto[] ordenaProdutos() {
-		Produto[] produtosOrdenados = (Produto[]) this.prodDescricao.values().toArray();
+		Produto[] produtosOrdenados = (Produto[]) this.produtos.values().toArray();
 		Arrays.sort(produtosOrdenados, new ProdutoComparator());
 		return produtosOrdenados;
 	}
@@ -154,6 +151,6 @@ public class Fornecedor implements Pessoa {
 	}
 	
 	public Produto getProduto(String nome, String descricao) {
-		return this.prodNome.get(nome).get(descricao);
+		return this.produtos.get(nome + "&" + descricao);
 	}
 }
