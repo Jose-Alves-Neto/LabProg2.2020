@@ -1,4 +1,4 @@
-package saga.cliente.conta;
+package saga.pessoa.cliente.conta;
 
 public class Compra {
 	

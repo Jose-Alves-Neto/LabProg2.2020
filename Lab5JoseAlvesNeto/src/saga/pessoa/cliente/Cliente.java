@@ -3,8 +3,8 @@ package saga.pessoa.cliente;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import saga.cliente.conta.Conta;
 import saga.pessoa.Pessoa;
+import saga.pessoa.cliente.conta.Conta;
 
 /**
  * Representação de um cliente, com o cpf, nome, email e local.
