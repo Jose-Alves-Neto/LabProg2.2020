@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import saga.pessoa.PessoaComparator;
+import saga.pessoa.fornecedores.produto.Produto;
 
 /**
  * Classe de controle de cliente
@@ -11,8 +12,8 @@ import saga.pessoa.PessoaComparator;
  */
 public class ControllerCliente {
 
-	/**Mapa para clientes, atribuindo o cpf ao cliente*/
-	public HashMap<String, Cliente> clientes;
+	/**Mapa para clientes, a key é o cpf do cliente*/
+	private HashMap<String, Cliente> clientes;
 	
 	/**
 	 * Inicia o Mapa de clientes
@@ -30,12 +31,11 @@ public class ControllerCliente {
 	 * @return o cpf se for cadastrado com sucesso.
 	 */
 	public String adicionaCliente(String cpf, String nome, String email, String telefone) {
-		verificaCadastro(cpf);
 		Cliente c = new Cliente(cpf, nome, email, telefone);
 		if (clientes.put(cpf, c) == null) {
 			return cpf;
 		} else {
-			return "";
+			throw new IllegalArgumentException();
 		}
 	}
 	
@@ -47,7 +47,6 @@ public class ControllerCliente {
 	 * @return 
 	 */
 	public String editaCliente(String cpf, String atributo, String modif) {
-		verificaEdicao(cpf);
 		return clientes.get(cpf).edita(atributo, modif);
 	}
 
@@ -57,7 +56,6 @@ public class ControllerCliente {
 	 * @return a representação literal do cliente.
 	 */ 
 	public String exibeCliente(String cpf) {
-		verificaLista(cpf);
 		return this.clientes.get(cpf).toString();
 	}
 	
@@ -82,55 +80,28 @@ public class ControllerCliente {
 	 * @param cpf do cliente.
 	 */
 	public void deletaCliente(String cpf) {
-		verificaDelete(cpf);
 		clientes.get(cpf).deleta();
 	}
 	
-	/**
-	 * Verifica se o cliente é válido para o cadastro.
-	 * @param cpf do cliente a ser verificado.
-	 */
-	private void verificaCadastro(String cpf) {
-		if (this.clientes.get(cpf) == null) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
-		}
+	//Contas
+	
+	public void adicionaCompra(String cpf, String fornecedor, String data, String nomeProd, String descProd, double preco) {
+		this.clientes.get(cpf).adicionaCompra(fornecedor, data, nomeProd, descProd, preco);
 	}
 	
-	/**
-	 * Verifica se o cliente é válido para ser exibido.
-	 * @param cpf do cliente a ser verificado.
-	 */
-	private void verificaLista(String cpf) {
-		if (clientes.get(cpf) == null) {
-			throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
-		} if (cpf.trim().equals("") || cpf == null) {
-			throw new IllegalArgumentException("Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
-		}
+	public String exibeConta(String cpf, String fornecedor) {
+		return this.clientes.get(cpf).exibeContas(fornecedor);
 	}
 	
-	/**
-	 * Verifica se o cliente é válido para edição.
-	 * @param cpf do cliente a ser verificado.
-	 */
-	private void verificaEdicao(String cpf) {
-		if (cpf.trim().equals("") || cpf == null) {
-			throw new IllegalArgumentException("Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
-		} if (clientes.get(cpf) == null) {
-			throw new IllegalArgumentException("Erro na edicao do cliente: cliente nao existe.");
-		}
+	public String exibeContasClientes(String cpf) {
+		return this.clientes.get(cpf).exibeContasClientes();
 	}
 	
-	/**
-	 * Verifica se o cliente é válido para ser apagado.
-	 * @param cpf do cliente a ser verificado.
-	 */
-	private void verificaDelete(String cpf) {
-		if (cpf.trim().equals("") || cpf == null) {
-			throw new IllegalArgumentException("Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
-		} if (clientes.get(cpf) == null) {
-			throw new IllegalArgumentException("Erro na remocao do cliente: cliente nao existe.");
-		}
+	public double getDebito(String cpf, String fornecedor) {
+		return this.clientes.get(cpf).getDebito(fornecedor);
 	}
+	
+	//Ordenação 
 	
 	private Cliente[] ordenaCliente() {
 		Cliente[] clientesOrdenados = (Cliente[]) this.clientes.values().toArray();

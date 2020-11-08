@@ -29,7 +29,7 @@ public class Produto {
 	 * @return a nova representação literal do produto.
 	 */
 	public String edita(double novoPreco) {
-		this.preco = novoPreco;
+		this.setPreco(novoPreco);
 		return this.toString();
 	}
 	
@@ -63,5 +63,13 @@ public class Produto {
 	
 	public String getDescricao() {
 		return this.descricao;
+	}
+	
+	public double getPreco() {
+		return this.preco;
+	}
+	
+	public void setPreco(double value) {
+		this.preco = value;
 	}
 }

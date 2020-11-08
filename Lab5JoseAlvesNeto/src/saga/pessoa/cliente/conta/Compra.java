@@ -1,5 +1,9 @@
 package saga.pessoa.cliente.conta;
 
+import java.util.Objects;
+
+import saga.pessoa.fornecedores.produto.Produto;
+
 public class Compra {
 	
 	private String data;
@@ -7,15 +11,15 @@ public class Compra {
 	private String descricao;
 	private double preco;
 	
-	public Compra(String data, String nome, String descricao, double preco) {
+	public Compra(String data, String nomeProd, String descProd, double preco) {
 		this.data = data;
-		this.nome = nome;
-		this.descricao = descricao;
+		this.nome = nomeProd;
+		this.descricao = descProd;
 		this.preco = preco;
 	}
 	
 	public int hashCode() {
-		return this.data.hashCode() + this.nome.hashCode() + this.nome.hashCode();
+		return Objects.hash(this.data, this.nome, this.descricao);
 	}
 	
 	public boolean equals(Object o) {
@@ -25,7 +29,7 @@ public class Compra {
 			return false;
 		}
 		Compra c = (Compra) o;
-		return this.data.equals(c.data) && this.nome.equals(c.nome) && this.descricao.equals(c.descricao);
+		return this.hashCode() == c.hashCode();
 	}
 	
 	public String toString() {

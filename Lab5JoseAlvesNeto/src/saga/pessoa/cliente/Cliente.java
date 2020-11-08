@@ -17,7 +17,7 @@ public class Cliente implements Pessoa {
 	private String email;
 	private String localizacao;
 	
-	HashMap<String, Conta> contas;
+	private HashMap<String, Conta> contas;
 	
 	/**
 	 * Cria a representação do cliente.
@@ -70,22 +70,23 @@ public class Cliente implements Pessoa {
 	
 	//Contas
 	
-	public void adicionaCompra(String fornecedor, String data, String nome, String descricao, double preco) {
+	public void adicionaCompra(String fornecedor, String data, String nomeProd, String descProd, double preco) {
 		if (!this.contas.containsKey(fornecedor)) {
 			criaConta(fornecedor);
-			this.contas.get(fornecedor).adicionaCompra(data, nome, descricao, preco);
-		} else {
-			this.contas.get(fornecedor).adicionaCompra(data, nome, descricao, preco);
 		}
+		this.contas.get(fornecedor).adicionaCompra(data, nomeProd, descProd, preco);
 	}
 	
-	public String listaCompras() {
-		String lista = "";
+	public String exibeContas(String fornecedor) {
+		return "Cliente: " + this.nome + this.contas.get(fornecedor).exibeCompra();
+	}
+	
+	public String exibeContasClientes() {
+		String lista = "Cliente: " + this.nome;
+		for (Conta c : this.contas.values()) {
+			lista += c.exibeCompra();
+		}
 		return lista;
-	}
-	
-	public String exibeCompra(String fornecedor) {
-		return this.nome + " | " + fornecedor + " | " + this.contas.get(fornecedor).toString();
 	}
 
 	public double getDebito(String fornecedor) {

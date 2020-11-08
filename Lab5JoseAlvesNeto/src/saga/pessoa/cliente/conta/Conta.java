@@ -16,12 +16,12 @@ public class Conta {
 		this.compras = new ArrayList<>();
 	}
 	
-	public void adicionaCompra(String data, String nome, String descricao, double preco) {
-		this.compras.add(new Compra(data, nome, descricao, preco));
+	public void adicionaCompra(String data, Produto produto) {
+		this.compras.add(new Compra(data, produto));
 	}
 	
-	public String listaCompra(String nomeCliente) {
-		String lista = nomeCliente + " | " + fornecedor;
+	public String exibeCompra() {
+		String lista = " | " + this.fornecedor;
 		for (int i = 0; i < compras.size(); i ++) {
 			lista += " | ";
 			lista += this.compras.get(i).toString();

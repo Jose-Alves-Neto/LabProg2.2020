@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import saga.pessoa.PessoaComparator;
+import saga.pessoa.fornecedores.produto.Produto;
 
 /**
  * Classe controle de fornecedor
@@ -120,5 +121,9 @@ public class ControllerFornecedor {
 	
 	public void deletaProduto(String nomeFornecedor, String nomeProduto, String descricao) {
 		this.fornecedores.get(nomeFornecedor).getProduto(nomeProduto, descricao).deleta();
+	}
+	
+	public double getPrecoProduto(String fornecedor, String nome, String descricao) {
+		return this.fornecedores.get(fornecedor).getProduto(nome, descricao).getPreco();
 	}
 }

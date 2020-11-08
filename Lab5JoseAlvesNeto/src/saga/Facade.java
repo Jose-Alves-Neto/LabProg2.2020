@@ -5,8 +5,8 @@ import saga.pessoa.fornecedores.ControllerFornecedor;
 
 public class Facade {
 	
-	ControllerCliente clientes;
-	ControllerFornecedor fornecedores;
+	private ControllerCliente clientes;
+	private ControllerFornecedor fornecedores;
 	
 	public Facade() {
 		this.clientes = new ControllerCliente();
@@ -33,6 +33,24 @@ public class Facade {
 	
 	public void removeCliente(String cpf) {
 		clientes.deletaCliente(cpf);
+	}
+	
+	//Contas
+	
+	public void adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
+		this.clientes.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod, this.fornecedores.getPrecoProduto(fornecedor, nome_prod, desc_prod));
+	}
+	
+	public String exibeConta(String cpf, String fornecedor) {
+		return this.clientes.exibeConta(cpf, fornecedor);
+	}
+	
+	public String exibeContasClientes(String cpf) {
+		return this.clientes.exibeContasClientes(cpf);
+	}
+	
+	public double getDebito(String cpf, String fornecedor) {
+		return this.clientes.getDebito(cpf, fornecedor);
 	}
 	
 	//Fornecedores
