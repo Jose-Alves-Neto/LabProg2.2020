@@ -6,12 +6,17 @@ package saga.pessoa.fornecedores.produto;
  */
 public class Produto {
 
+	/**Nome do produto.<br>
+	 * Identificador do produto.*/
 	private String nome;
+	/**Preço do produto*/
 	private double preco;
+	/**Descrição do produto.<br>
+	 * Indentificador do produto.*/
 	private String descricao;
 	
 	/**
-	 * Constroi a representação do produto.
+	 * Constroí a representação do produto.
 	 * @param nome do produto.
 	 * @param preco do produto.
 	 * @param descricao do produto.
@@ -33,6 +38,9 @@ public class Produto {
 		return this.toString();
 	}
 	
+	/**
+	 * Deleta a referência do produto
+	 */
 	public void deleta() {
 		this.nome = null;
 		this.descricao = null;
@@ -50,7 +58,7 @@ public class Produto {
 			return false;
 		}
 		Produto p = (Produto) o;
-		return this.nome.equals(p.nome) && this.descricao.equals(p.descricao);
+		return this.hashCode() == p.hashCode();
 	}
 	
 	public String toString() {

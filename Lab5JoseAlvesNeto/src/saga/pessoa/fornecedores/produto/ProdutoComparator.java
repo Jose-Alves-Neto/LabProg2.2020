@@ -2,6 +2,11 @@ package saga.pessoa.fornecedores.produto;
 
 import java.util.Comparator;
 
+/**
+ * Comparator da classe produto. <br>
+ * Organiza em ordem alfabética pela concatenação de nome e da descrição do produto.
+ * @author José Alves de Figueiredo Neto - 119210150
+ */
 public class ProdutoComparator implements Comparator<Produto> {
 
 	@Override
